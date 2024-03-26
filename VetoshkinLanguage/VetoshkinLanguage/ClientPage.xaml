@@ -15,6 +15,28 @@
             <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
 
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBlock Name="ClientNum" FontSize="20" Height="30" Text="Выводить по "></TextBlock>
+
+            <ComboBox Name="ClientNumCombo" FontSize="15" Width="75" Margin="5" SelectionChanged="ClientNumCombo_SelectionChanged">
+                <TextBlock>10</TextBlock>
+                <TextBlock>50</TextBlock>
+                <TextBlock>200</TextBlock>
+                <TextBlock>Все</TextBlock>
+            </ComboBox>
+            <TextBlock Name="TBCount" FontSize="20" Height="30"></TextBlock>
+            <TextBlock Name="TBAllRecords" FontSize="20" Height="30"></TextBlock>
+            <Button Name="LeftDirButton" Content="&lt;" Width="20" Height="30" Click="LeftDirButton_Click"></Button>
+            <ListBox FontSize="20" Name="PageListBox" MouseUp="PageListBox_MouseUp">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
+            <Button Name="RightDirButton" Content="&gt;" Width="20" Height="30" Click="RightDirButton_Click"></Button>
+        </StackPanel>
+        
         <ListView Name="ClientListView" Grid.Row="1">
             <ListView.ItemTemplate>
                 <DataTemplate>
