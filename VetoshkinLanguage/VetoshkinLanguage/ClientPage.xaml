@@ -52,24 +52,27 @@
 
                         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="2" Margin="5,0">
                             <TextBlock Text="Дата рождения: " FontSize="17"></TextBlock>
-                            <TextBlock Text="{Binding Birthday}" HorizontalAlignment="Left" FontSize="17"></TextBlock>
+                            <TextBlock Text="{Binding Birth}" HorizontalAlignment="Left" FontSize="17"></TextBlock>
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="3" Margin="5,0">
                             <TextBlock Text="Телефон: " FontSize="17"></TextBlock>
                             <TextBlock Text="{Binding Phone}" HorizontalAlignment="Left" FontSize="17"></TextBlock>
-                        </StackPanel>
-
-                        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="4" Margin="5,0">
                             <TextBlock Text="Email: " FontSize="17"></TextBlock>
                             <TextBlock Text="{Binding Email}" HorizontalAlignment="Left" FontSize="17"></TextBlock>
                         </StackPanel>
 
-                        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="5" Margin="5,0">
+                        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="4" Margin="5,0">
                             <TextBlock Text="Дата регистрации: " FontSize="17"></TextBlock>
-                            <TextBlock Text="{Binding RegistrationDate}" HorizontalAlignment="Left" FontSize="17"></TextBlock>
+                            <TextBlock Text="{Binding Registration}" HorizontalAlignment="Left" FontSize="17"></TextBlock>
                         </StackPanel>
 
+                        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="5" Margin="5,0">
+                            <TextBlock Text="Дата последнего посещения: " FontSize="17"></TextBlock>
+                            <TextBlock Text="{Binding LastVisitDate}" HorizontalAlignment="Left" FontSize="17"></TextBlock>
+                            <TextBlock Text="Кол-во посещений: " FontSize="17" Margin="20,0"></TextBlock>
+                            <TextBlock Text="{Binding VisitCount}" HorizontalAlignment="Left" FontSize="17"></TextBlock>
+                        </StackPanel>
 
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"></RowDefinition>

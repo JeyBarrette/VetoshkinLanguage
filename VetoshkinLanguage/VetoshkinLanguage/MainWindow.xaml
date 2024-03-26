@@ -12,6 +12,8 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
         </Grid.RowDefinitions>
+        <Frame Grid.Row="0" Background="#e7fabf"></Frame>
+        <Frame Grid.Row="2" Background="#e7fabf"></Frame>
         <Image Source="Images/school_logo.png" HorizontalAlignment="Left" VerticalAlignment="Center"></Image>
         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Width="auto" Text="VetoshkinLanguage" FontSize="30"></TextBlock>
         <Frame Grid.Row="1" NavigationUIVisibility="Hidden" Name="MainFrame" ContentRendered="MainFrame_ContentRendered"></Frame>
