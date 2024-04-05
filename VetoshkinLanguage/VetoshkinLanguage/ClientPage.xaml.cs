@@ -43,18 +43,18 @@ namespace VetoshkinLanguage
         private void UpdateClients()
         {
             var currentClients = VetoshkinLanguageEntities.GetContext().Client.ToList();
-            ClientListView.ItemsSource = currentClients;
-            TBAllRecords.Text = VetoshkinLanguageEntities.GetContext().Client.Count().ToString();
-            TBCount.Text = currentClients.Count().ToString();
-            TableList = currentClients;
 
             if (SortBox.SelectedIndex == 1)
             {
-                currentClients = currentClients.OrderBy(p => p.FirstName).ToList();
+                currentClients = currentClients.OrderBy(p => p.LastName).ToList();
             }
             else if (SortBox.SelectedIndex == 2)
             {
-                currentClients = currentClients.OrderBy(p => p.VisitCount).ToList();
+                currentClients = currentClients.Where(p => p.LastVisitDate != "Нет").OrderByDescending(p => DateTime.Parse(p.LastVisitDate)).ToList();
+            }
+            else if (SortBox.SelectedIndex == 3)
+            {
+                currentClients = currentClients.OrderByDescending(p => p.VisitCount).ToList();
             }
 
             if (FiltrBox.SelectedIndex == 1)
@@ -65,6 +65,15 @@ namespace VetoshkinLanguage
             {
                 currentClients = currentClients.Where(p => p.GenderCode == "м").ToList();
             }
+
+            currentClients = currentClients.Where(p => p.LastName.ToLower().Contains(TxtBoxSrch.Text.ToLower()) || 
+            p.FirstName.ToLower().Contains(TxtBoxSrch.Text.ToLower()) ||
+            p.Patronymic.ToLower().Contains(TxtBoxSrch.Text.ToLower()) || 
+            p.Email.ToLower().Contains(TxtBoxSrch.Text.ToLower()) ||
+            p.Phone.Replace("+", "").Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "").ToLower().Contains(TxtBoxSrch.Text.Replace("+", "").Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "").ToLower())).ToList();
+
+            TBAllRecords.Text = VetoshkinLanguageEntities.GetContext().Client.Count().ToString();
+            TBCount.Text = currentClients.Count().ToString();
 
             if (ClientNumCombo.SelectedIndex == 0)
             {
@@ -84,6 +93,8 @@ namespace VetoshkinLanguage
                 TBAllRecords.Text = " из " + CountRecords.ToString();
             }
 
+            ClientListView.ItemsSource = currentClients;
+            TableList = currentClients;
             ChangePage(0, 0);
         }
 
@@ -215,6 +226,21 @@ namespace VetoshkinLanguage
             {
                 MessageBox.Show("Невозможно выполнить удаление, так как клиент посещал школу!");
             }
+        }
+
+        private void SortBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            UpdateClients();
+        }
+
+        private void FiltrBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            UpdateClients();
+        }
+
+        private void TxtBoxSrch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            UpdateClients();
         }
     }
 }

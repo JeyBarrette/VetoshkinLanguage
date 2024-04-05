@@ -21,16 +21,17 @@
                 <TextBlock Text="Поиск " Margin="5, 5"></TextBlock>
             </StackPanel>
             <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left">
-                <ComboBox Name="SortBox" Width="300" Height="30" HorizontalAlignment="Left" Margin="5,5">
+                <ComboBox Name="SortBox" Width="320" Height="30" HorizontalAlignment="Left" Margin="5,5" SelectionChanged="SortBox_SelectionChanged">
                     <TextBlock>По умолчанию</TextBlock>
                     <TextBlock>От А до Я</TextBlock>
-                    <TextBlock>По количеству посещений</TextBlock>
+                    <TextBlock>Дата последнего посещения</TextBlock>
+                    <TextBlock>Количество посещений</TextBlock>
                 </ComboBox>
-                <TextBox Name="TxtBoxSrch" Height="30" Width="300"></TextBox>
+                <TextBox Name="TxtBoxSrch" Height="30" Width="320" TextChanged="TxtBoxSrch_TextChanged"></TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left">
                 <TextBlock Text="Фильтрация" Margin="5, 5" Height="30"></TextBlock>
-                <ComboBox Name="FiltrBox" Width="150" Margin="5, 5" Height="30">
+                <ComboBox Name="FiltrBox" Width="150" Margin="5, 5" Height="30" SelectionChanged="FiltrBox_SelectionChanged">
                     <TextBlock>Все</TextBlock>
                     <TextBlock>Женский</TextBlock>
                     <TextBlock>Мужской</TextBlock>
