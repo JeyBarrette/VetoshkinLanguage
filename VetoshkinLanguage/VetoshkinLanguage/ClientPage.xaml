@@ -10,10 +10,33 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="80"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right">
+                <TextBlock Text="Сортировка " Margin="5, 5"></TextBlock>
+                <TextBlock Text="Поиск " Margin="5, 5"></TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left">
+                <ComboBox Name="SortBox" Width="300" Height="30" HorizontalAlignment="Left" Margin="5,5">
+                    <TextBlock>По умолчанию</TextBlock>
+                    <TextBlock>От А до Я</TextBlock>
+                    <TextBlock>По количеству посещений</TextBlock>
+                </ComboBox>
+                <TextBox Name="TxtBoxSrch" Height="30" Width="300"></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left">
+                <TextBlock Text="Фильтрация" Margin="5, 5" Height="30"></TextBlock>
+                <ComboBox Name="FiltrBox" Width="150" Margin="5, 5" Height="30">
+                    <TextBlock>Все</TextBlock>
+                    <TextBlock>Женский</TextBlock>
+                    <TextBlock>Мужской</TextBlock>
+                </ComboBox>
+            </StackPanel>
+        </StackPanel>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
             <TextBlock Name="ClientNum" FontSize="20" Height="30" Text="Выводить по "></TextBlock>
@@ -96,7 +119,10 @@
                             <TextBlock Text="{Binding VisitCount}" HorizontalAlignment="Left" FontSize="17"></TextBlock>
                         </StackPanel>
 
+                        <Button Name="ClientDelBTN" Grid.Row="7" Content="Удалить" Width="140" Click="ClientDelBTN_Click"></Button>
+
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"></RowDefinition>
                             <RowDefinition Height="auto"></RowDefinition>
                             <RowDefinition Height="auto"></RowDefinition>
                             <RowDefinition Height="auto"></RowDefinition>

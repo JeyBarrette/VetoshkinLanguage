@@ -34,6 +34,8 @@ namespace VetoshkinLanguage
             List<Client> currentClients = VetoshkinLanguageEntities.GetContext().Client.ToList();
             ClientListView.ItemsSource = currentClients;
             ClientNumCombo.SelectedIndex = 0;
+            FiltrBox.SelectedIndex = 0;
+            SortBox.SelectedIndex = 0;
             TBAllRecords.Text = VetoshkinLanguageEntities.GetContext().Client.Count().ToString();
             UpdateClients();
         }
@@ -46,21 +48,40 @@ namespace VetoshkinLanguage
             TBCount.Text = currentClients.Count().ToString();
             TableList = currentClients;
 
+            if (SortBox.SelectedIndex == 1)
+            {
+                currentClients = currentClients.OrderBy(p => p.FirstName).ToList();
+            }
+            else if (SortBox.SelectedIndex == 2)
+            {
+                currentClients = currentClients.OrderBy(p => p.VisitCount).ToList();
+            }
+
+            if (FiltrBox.SelectedIndex == 1)
+            {
+                currentClients = currentClients.Where(p => p.GenderCode == "ж").ToList();
+            }
+            else if (FiltrBox.SelectedIndex == 2)
+            {
+                currentClients = currentClients.Where(p => p.GenderCode == "м").ToList();
+            }
+
             if (ClientNumCombo.SelectedIndex == 0)
             {
-                CountPage = 10;
+                CountInPage = 10;
             }
             else if (ClientNumCombo.SelectedIndex == 1)
             {
-                CountPage = 50;
+                CountInPage = 50;
             }
             else if (ClientNumCombo.SelectedIndex == 2)
             {
-                CountPage = 200;
+                CountInPage = 200;
             }
             else
             {
-                CountPage = 0;
+                CountInPage = 0;
+                TBAllRecords.Text = " из " + CountRecords.ToString();
             }
 
             ChangePage(0, 0);
@@ -174,6 +195,26 @@ namespace VetoshkinLanguage
         private void ClientNumCombo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             UpdateClients();
+        }
+
+        private void ClientDelBTN_Click(object sender, RoutedEventArgs e)
+        {
+            var currentClient = (sender as Button).DataContext as Client;
+
+            if (currentClient.VisitCount == 0)
+            {
+                if (MessageBox.Show("Вы точно хотите выполнить удаление?", "Внимание!", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    VetoshkinLanguageEntities.GetContext().Client.Remove(currentClient);
+                    VetoshkinLanguageEntities.GetContext().SaveChanges();
+                    ClientListView.ItemsSource = VetoshkinLanguageEntities.GetContext().Client.ToList();
+                    UpdateClients();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Невозможно выполнить удаление, так как клиент посещал школу!");
+            }
         }
     }
 }
