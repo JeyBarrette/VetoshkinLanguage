@@ -20,12 +20,11 @@ namespace VetoshkinLanguage
         public Client()
         {
             this.ClientService = new HashSet<ClientService>();
-            this.Tag = new HashSet<Tag>();
         }
     
         public int ID { get; set; }
-        public string LastName { get; set; }
         public string FirstName { get; set; }
+        public string LastName { get; set; }
         public string Patronymic { get; set; }
         public string GenderCode { get; set; }
         public string Phone { get; set; }
@@ -33,12 +32,6 @@ namespace VetoshkinLanguage
         public System.DateTime Birthday { get; set; }
         public string Email { get; set; }
         public System.DateTime RegistrationDate { get; set; }
-    
-        public virtual Gender Gender { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ClientService> ClientService { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Tag> Tag { get; set; }
 
         public int VisitCount
         {
@@ -48,7 +41,7 @@ namespace VetoshkinLanguage
             }
         }
 
-        public string LastVisitDate 
+        public string LastVisitDate
         {
             get
             {
@@ -58,7 +51,7 @@ namespace VetoshkinLanguage
                     return VetoshkinLanguageEntities.GetContext().ClientService.Where(x => x.ClientID == this.ID).Max(p => p.StartTime).ToShortDateString();
             }
         }
-        
+
         public string Birth
         {
             get
@@ -74,5 +67,9 @@ namespace VetoshkinLanguage
                 return RegistrationDate.ToShortDateString();
             }
         }
+
+        public virtual Gender Gender { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ClientService> ClientService { get; set; }
     }
 }

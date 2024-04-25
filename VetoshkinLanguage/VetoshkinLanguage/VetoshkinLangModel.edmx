@@ -5,28 +5,20 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="Хранилище VetoshkinLanguageModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="AttachedProduct">
-          <Key>
-            <PropertyRef Name="MainProductID" />
-            <PropertyRef Name="AttachedProductID" />
-          </Key>
-          <Property Name="MainProductID" Type="int" Nullable="false" />
-          <Property Name="AttachedProductID" Type="int" Nullable="false" />
-        </EntityType>
         <EntityType Name="Client">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Patronymic" Type="nvarchar" MaxLength="50" />
           <Property Name="GenderCode" Type="nchar" MaxLength="1" Nullable="false" />
           <Property Name="Phone" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="PhotoPath" Type="nvarchar" MaxLength="1000" />
-          <Property Name="Birthday" Type="date" />
+          <Property Name="PhotoPath" Type="nvarchar(max)" />
+          <Property Name="Birthday" Type="datetime" />
           <Property Name="Email" Type="nvarchar" MaxLength="255" />
-          <Property Name="RegistrationDate" Type="date" Nullable="false" />
+          <Property Name="RegistrationDate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="ClientService">
           <Key>
@@ -34,9 +26,8 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ClientID" Type="int" Nullable="false" />
-          <Property Name="ServiceID" Type="int" Nullable="false" />
           <Property Name="StartTime" Type="datetime" Nullable="false" />
-          <Property Name="Comment" Type="nvarchar(max)" />
+          <Property Name="ServiceID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="DocumentByService">
           <Key>
@@ -97,11 +88,9 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="DurationInMinute" Type="int" Nullable="false" />
           <Property Name="Cost" Type="decimal" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="DurationInMinutes" Type="int" Nullable="false" />
-          <Property Name="Discount" Type="float" />
-          <Property Name="Description" Type="nvarchar(max)" />
-          <Property Name="MainImagePath" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Discount" Type="int" />
         </EntityType>
         <EntityType Name="ServicePhoto">
           <Key>
@@ -119,38 +108,6 @@
           <Property Name="Title" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="Color" Type="nchar" MaxLength="6" Nullable="false" />
         </EntityType>
-        <EntityType Name="TagOfClient">
-          <Key>
-            <PropertyRef Name="ClientID" />
-            <PropertyRef Name="TagID" />
-          </Key>
-          <Property Name="ClientID" Type="int" Nullable="false" />
-          <Property Name="TagID" Type="int" Nullable="false" />
-        </EntityType>
-        <Association Name="FK_AttachedProduct_Product">
-          <End Role="Product" Type="Self.Product" Multiplicity="1" />
-          <End Role="AttachedProduct" Type="Self.AttachedProduct" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="AttachedProduct">
-              <PropertyRef Name="MainProductID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_AttachedProduct_Product1">
-          <End Role="Product" Type="Self.Product" Multiplicity="1" />
-          <End Role="AttachedProduct" Type="Self.AttachedProduct" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="AttachedProduct">
-              <PropertyRef Name="AttachedProductID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Client_Gender">
           <End Role="Gender" Type="Self.Gender" Multiplicity="1" />
           <End Role="Client" Type="Self.Client" Multiplicity="*" />
@@ -259,32 +216,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TagOfClient_Client">
-          <End Role="Client" Type="Self.Client" Multiplicity="1" />
-          <End Role="TagOfClient" Type="Self.TagOfClient" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Client">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="TagOfClient">
-              <PropertyRef Name="ClientID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TagOfClient_Tag">
-          <End Role="Tag" Type="Self.Tag" Multiplicity="1" />
-          <End Role="TagOfClient" Type="Self.TagOfClient" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tag">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="TagOfClient">
-              <PropertyRef Name="TagID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="Хранилище VetoshkinLanguageModelContainer">
-          <EntitySet Name="AttachedProduct" EntityType="Self.AttachedProduct" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ClientService" EntityType="Self.ClientService" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DocumentByService" EntityType="Self.DocumentByService" Schema="dbo" store:Type="Tables" />
@@ -296,15 +228,6 @@
           <EntitySet Name="Service" EntityType="Self.Service" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ServicePhoto" EntityType="Self.ServicePhoto" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tag" EntityType="Self.Tag" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="TagOfClient" EntityType="Self.TagOfClient" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_AttachedProduct_Product" Association="Self.FK_AttachedProduct_Product">
-            <End Role="Product" EntitySet="Product" />
-            <End Role="AttachedProduct" EntitySet="AttachedProduct" />
-          </AssociationSet>
-          <AssociationSet Name="FK_AttachedProduct_Product1" Association="Self.FK_AttachedProduct_Product1">
-            <End Role="Product" EntitySet="Product" />
-            <End Role="AttachedProduct" EntitySet="AttachedProduct" />
-          </AssociationSet>
           <AssociationSet Name="FK_Client_Gender" Association="Self.FK_Client_Gender">
             <End Role="Gender" EntitySet="Gender" />
             <End Role="Client" EntitySet="Client" />
@@ -341,14 +264,6 @@
             <End Role="Service" EntitySet="Service" />
             <End Role="ServicePhoto" EntitySet="ServicePhoto" />
           </AssociationSet>
-          <AssociationSet Name="FK_TagOfClient_Client" Association="Self.FK_TagOfClient_Client">
-            <End Role="Client" EntitySet="Client" />
-            <End Role="TagOfClient" EntitySet="TagOfClient" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TagOfClient_Tag" Association="Self.FK_TagOfClient_Tag">
-            <End Role="Tag" EntitySet="Tag" />
-            <End Role="TagOfClient" EntitySet="TagOfClient" />
-          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
@@ -360,18 +275,17 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="GenderCode" Type="String" MaxLength="1" FixedLength="true" Unicode="true" Nullable="false" />
           <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="PhotoPath" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="Birthday" Type="DateTime" Precision="0" />
+          <Property Name="PhotoPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Birthday" Type="DateTime" Precision="3" />
           <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="RegistrationDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="RegistrationDate" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Gender" Relationship="Self.FK_Client_Gender" FromRole="Client" ToRole="Gender" />
           <NavigationProperty Name="ClientService" Relationship="Self.FK_ClientService_Client" FromRole="Client" ToRole="ClientService" />
-          <NavigationProperty Name="Tag" Relationship="Self.TagOfClient" FromRole="Client" ToRole="Tag" />
         </EntityType>
         <EntityType Name="ClientService">
           <Key>
@@ -379,9 +293,8 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ClientID" Type="Int32" Nullable="false" />
-          <Property Name="ServiceID" Type="Int32" Nullable="false" />
           <Property Name="StartTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ServiceID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Client" Relationship="Self.FK_ClientService_Client" FromRole="ClientService" ToRole="Client" />
           <NavigationProperty Name="Service" Relationship="Self.FK_ClientService_Service" FromRole="ClientService" ToRole="Service" />
           <NavigationProperty Name="DocumentByService" Relationship="Self.FK_DocumentByService_ClientService" FromRole="ClientService" ToRole="DocumentByService" />
@@ -427,8 +340,6 @@
           <NavigationProperty Name="Manufacturer" Relationship="Self.FK_Product_Manufacturer" FromRole="Product" ToRole="Manufacturer" />
           <NavigationProperty Name="ProductPhoto" Relationship="Self.FK_ProductPhoto_Product" FromRole="Product" ToRole="ProductPhoto" />
           <NavigationProperty Name="ProductSale" Relationship="Self.FK_ProductSale_Product" FromRole="Product" ToRole="ProductSale" />
-          <NavigationProperty Name="Product1" Relationship="Self.AttachedProduct" FromRole="Product" ToRole="Product1" />
-          <NavigationProperty Name="Product2" Relationship="Self.AttachedProduct" FromRole="Product1" ToRole="Product" />
         </EntityType>
         <EntityType Name="ProductPhoto">
           <Key>
@@ -457,11 +368,9 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DurationInMinute" Type="Int32" Nullable="false" />
           <Property Name="Cost" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="DurationInMinutes" Type="Int32" Nullable="false" />
-          <Property Name="Discount" Type="Double" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="MainImagePath" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Discount" Type="Int32" />
           <NavigationProperty Name="ClientService" Relationship="Self.FK_ClientService_Service" FromRole="Service" ToRole="ClientService" />
           <NavigationProperty Name="ServicePhoto" Relationship="Self.FK_ServicePhoto_Service" FromRole="Service" ToRole="ServicePhoto" />
         </EntityType>
@@ -481,7 +390,6 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Color" Type="String" MaxLength="6" FixedLength="true" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Client" Relationship="Self.TagOfClient" FromRole="Tag" ToRole="Client" />
         </EntityType>
         <Association Name="FK_Client_Gender">
           <End Role="Gender" Type="Self.Gender" Multiplicity="1" />
@@ -590,14 +498,6 @@
               <PropertyRef Name="ServiceID" />
             </Dependent>
           </ReferentialConstraint>
-        </Association>
-        <Association Name="AttachedProduct">
-          <End Role="Product" Type="Self.Product" Multiplicity="*" />
-          <End Role="Product1" Type="Self.Product" Multiplicity="*" />
-        </Association>
-        <Association Name="TagOfClient">
-          <End Role="Client" Type="Self.Client" Multiplicity="*" />
-          <End Role="Tag" Type="Self.Tag" Multiplicity="*" />
         </Association>
         <EntityContainer Name="VetoshkinLanguageEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Client" EntityType="Self.Client" />
@@ -647,14 +547,6 @@
             <End Role="Service" EntitySet="Service" />
             <End Role="ServicePhoto" EntitySet="ServicePhoto" />
           </AssociationSet>
-          <AssociationSet Name="AttachedProduct" Association="Self.AttachedProduct">
-            <End Role="Product" EntitySet="Product" />
-            <End Role="Product1" EntitySet="Product" />
-          </AssociationSet>
-          <AssociationSet Name="TagOfClient" Association="Self.TagOfClient">
-            <End Role="Client" EntitySet="Client" />
-            <End Role="Tag" EntitySet="Tag" />
-          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -666,8 +558,8 @@
             <EntityTypeMapping TypeName="VetoshkinLanguageModel.Client">
               <MappingFragment StoreEntitySet="Client">
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
                 <ScalarProperty Name="GenderCode" ColumnName="GenderCode" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
@@ -683,9 +575,8 @@
               <MappingFragment StoreEntitySet="ClientService">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="ClientID" ColumnName="ClientID" />
-                <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
                 <ScalarProperty Name="StartTime" ColumnName="StartTime" />
-                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -753,11 +644,9 @@
               <MappingFragment StoreEntitySet="Service">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="DurationInMinute" ColumnName="DurationInMinute" />
                 <ScalarProperty Name="Cost" ColumnName="Cost" />
-                <ScalarProperty Name="DurationInMinutes" ColumnName="DurationInMinutes" />
                 <ScalarProperty Name="Discount" ColumnName="Discount" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="MainImagePath" ColumnName="MainImagePath" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -779,22 +668,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="AttachedProduct" TypeName="VetoshkinLanguageModel.AttachedProduct" StoreEntitySet="AttachedProduct">
-            <EndProperty Name="Product">
-              <ScalarProperty Name="ID" ColumnName="MainProductID" />
-            </EndProperty>
-            <EndProperty Name="Product1">
-              <ScalarProperty Name="ID" ColumnName="AttachedProductID" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="TagOfClient" TypeName="VetoshkinLanguageModel.TagOfClient" StoreEntitySet="TagOfClient">
-            <EndProperty Name="Client">
-              <ScalarProperty Name="ID" ColumnName="ClientID" />
-            </EndProperty>
-            <EndProperty Name="Tag">
-              <ScalarProperty Name="ID" ColumnName="TagID" />
-            </EndProperty>
-          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -242,5 +242,17 @@ namespace VetoshkinLanguage
         {
             UpdateClients();
         }
+
+        private void ClientAddEditBTN_Click(object sender, RoutedEventArgs e)
+        {
+            new AddEditWindow((sender as Button).DataContext as Client).ShowDialog();
+            UpdateClients();
+        }
+
+        private void AddClient_Click(object sender, RoutedEventArgs e)
+        {
+            new AddEditWindow(null).ShowDialog();
+            UpdateClients();
+        }
     }
 }

@@ -5,20 +5,21 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:VetoshkinLanguage"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="500" d:DesignWidth="850"
       Title="ClientPage">
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="80"></RowDefinition>
+            <RowDefinition Height="120"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
         </Grid.RowDefinitions>
-
+        
         <StackPanel Orientation="Horizontal">
             <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right">
                 <TextBlock Text="Сортировка " Margin="5, 5"></TextBlock>
                 <TextBlock Text="Поиск " Margin="5, 5"></TextBlock>
+                <Button Content="Добавить" Name="AddClient" Click="AddClient_Click" Grid.Row="0" Grid.Column="0"/>
             </StackPanel>
             <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left">
                 <ComboBox Name="SortBox" Width="320" Height="30" HorizontalAlignment="Left" Margin="5,5" SelectionChanged="SortBox_SelectionChanged">
@@ -120,7 +121,11 @@
                             <TextBlock Text="{Binding VisitCount}" HorizontalAlignment="Left" FontSize="17"></TextBlock>
                         </StackPanel>
 
-                        <Button Name="ClientDelBTN" Grid.Row="7" Content="Удалить" Width="140" Click="ClientDelBTN_Click"></Button>
+                        
+                        <StackPanel Orientation="Horizontal" Grid.Row="7" Grid.Column="1">
+                            <Button Name="ClientDelBTN" Grid.Row="7" Content="Удалить" Width="140" Click="ClientDelBTN_Click"></Button>
+                            <Button Name="ClientAddEditBTN" Content="Редактировать"  Width="150" Click="ClientAddEditBTN_Click"/>
+                        </StackPanel>
 
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"></RowDefinition>

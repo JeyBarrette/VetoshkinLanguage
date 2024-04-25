@@ -19,8 +19,6 @@ namespace VetoshkinLanguage
         {
             this.ProductPhoto = new HashSet<ProductPhoto>();
             this.ProductSale = new HashSet<ProductSale>();
-            this.Product1 = new HashSet<Product>();
-            this.Product2 = new HashSet<Product>();
         }
     
         public int ID { get; set; }
@@ -36,9 +34,5 @@ namespace VetoshkinLanguage
         public virtual ICollection<ProductPhoto> ProductPhoto { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductSale> ProductSale { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Product> Product1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Product> Product2 { get; set; }
     }
 }

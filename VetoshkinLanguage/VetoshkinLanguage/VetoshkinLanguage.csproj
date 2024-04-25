@@ -67,6 +67,9 @@
     <Compile Include="AddEditPage.xaml.cs">
       <DependentUpon>AddEditPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AddEditWindow.xaml.cs">
+      <DependentUpon>AddEditWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Client.cs">
       <DependentUpon>VetoshkinLangModel.tt</DependentUpon>
     </Compile>
@@ -116,6 +119,10 @@
       <DependentUpon>VetoshkinLangModel.edmx</DependentUpon>
     </Compile>
     <Page Include="AddEditPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AddEditWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -280,19 +287,21 @@
     <Resource Include="Клиенты\m97.jpg" />
     <Resource Include="Клиенты\m98.jpg" />
     <Resource Include="Клиенты\m99.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="VetoshkinLangModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>VetoshkinLangModel.Context.cs</LastGenOutput>
       <DependentUpon>VetoshkinLangModel.edmx</DependentUpon>
+      <LastGenOutput>VetoshkinLangModel.Context.cs</LastGenOutput>
     </Content>
     <Content Include="VetoshkinLangModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>VetoshkinLangModel.edmx</DependentUpon>
       <LastGenOutput>VetoshkinLangModel.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
